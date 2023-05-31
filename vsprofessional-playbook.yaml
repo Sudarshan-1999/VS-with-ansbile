@@ -1,0 +1,23 @@
+- name: "Install Visual Studio Professional 2019"
+  hosts: windows_agent
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Copy File
+      win_copy:
+        src: /home/sd/VisualStudioSetup.exe
+        dest: C:\Temp\
+    - name: Install MSBuild thingy with arguments split to prevent quotes
+      ansible.windows.win_package:
+        path: C:\Temp\VisualStudioSetup.exe 
+        product_id: '{D1437F51-786A-4F57-A99C-F8E94FBA1BD8}'
+        arguments:
+        - --norestart
+        - --passive
+        - --wait
+        - --add
+        - Microsoft.Net.Component.4.6.1.TargetingPack
+        - --add
+        - Microsoft.Net.Component.4.6.TargetingPack
+        - --add
+        - Microsoft.VisualStudio.Workload.NativeDesktop

@@ -1,0 +1,16 @@
+---
+- name: Install Visual Studio Professional 2019
+  hosts: windows_agent
+  gather_facts: no
+  become: false
+  tasks:
+    - name: Download Visual Studio installer
+      win_get_url:
+        url: https://download.visualstudio.microsoft.com/download/pr/efaa042e-82af-4d8c-a0d0-9afaf057a0da/18c8461a57d88b0b5a8628f6a7dd36cbf4b962ac8fa8f562fae1bf3d105b4b77/vs_Professional.exe
+        dest: C:\Temp\vs_Professional.exe
+
+    - name: Install Visual Studio Professional
+      win_package:
+        path: C:\Temp\vs_Professional.exe
+        arguments: '--quiet --wait --norestart'
+        product_id: '{214424d0-2a60-45ba-9d4a-4a7cdd58b57f}'

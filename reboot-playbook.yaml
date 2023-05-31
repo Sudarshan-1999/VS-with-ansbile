@@ -1,0 +1,8 @@
+---
+- name: Reboot Server
+  hosts: windows_agent
+  become: false
+  tasks:
+    - name: Restart
+      win_reboot:
+

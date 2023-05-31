@@ -1,0 +1,19 @@
+---
+- name: Install 7zip on Windows
+  hosts: windows_agent
+  gather_facts: no
+  become: false
+  tasks:
+    - name: create directory Temp
+      win_file:
+        path: C:\Temp
+        state: directory
+    - name: Download 7zip installer
+      win_get_url:
+        url: https://www.7-zip.org/a/7z1900-x64.msi
+        dest: C:\Temp\7z.msi
+
+    - name: Install 7zip
+      win_package:
+        path: C:\Temp\7z.msi
+        product_id: '{23170F69-40C1-2702-1900-000001000000}'
